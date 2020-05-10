@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
+from tkinter import messagebox
 
 # Global Objects
 top = tk.Tk()
@@ -7,26 +8,44 @@ cost = None
 update_btn = None
 style = ttk.Style()
 
-ctgory = ''
+ctgory = tk.StringVar()
 
 def update_db():
+    global ctgory
+    global cost
     # check that there is valid info selected
-    if ctgory == '' or cost.getdouble() <= 0.0:
-        # display an error
-        pass
+    price = cost.get()
+    category_select = ctgory.get()
+    if price == '':
+        messagebox.showerror('Invalid Entry', 'No cost entered.')
+        return
+    #
+    price = float(price)
+    if category_select == '' and price <= 0.0:
+        messagebox.showerror('Invalid Entry', \
+            'Price must be greater than zero.\nYou must select a category.')
+        return
+    elif price <= 0.0:
+        messagebox.showerror('Invalid Entry', \
+            'Price must be greater than zero.')
+        return
+    elif category_select == '':
+        messagebox.showerror('Invalid Entry', \
+            'You must select a category')
+        return
     #
     # update the database
-    print("Categories updated %s")
+    print("Categories updated %s" % category_select)
     # update the button to show good
     update_btn.configure(text="Database Updated")
     # clear variables
-    ctgory = ''
+    category_select = '' # TODO: make this correct
     cost.delete(0, -1)
-
 #
 
 # categories needs to be pulled from the database
 def init_GUI(categories):
+    global ctgory
     # Initialize the title
     top.title("Budget Program")
 
