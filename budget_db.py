@@ -1,5 +1,5 @@
 import sqlite3
-import datetime
+import time
 
 def create_db():
     connection = sqlite3.connect("matt_budget.db")
@@ -19,16 +19,18 @@ def create_db():
     connection.close()
 #
 
-def insert_entry(entry):
+# entry has the users commands and updates the db
+def insert_entry(cat, cost, comments):
     connection = sqlite3.connect("matt_budget.db")
     cursor = connection.cursor()
     format_str = """INSERT INTO budget (entry_id, entry_time, category, cost, comments)
                         VALUES (NULL, "{entry_time}", "{category}", "{cost}", "{comments}");"""
-    sql_command = format_str.format(entry_time=entry[0], category=entry[1], cost=entry[2], comments=entry[3])
+    sql_command = format_str.format(entry_time=time.time(), category=cat, cost=cost, comments=comments)
     cursor.execute(sql_command)
 
     connection.commit()
     connection.close()
+    return True
 #
 
 def query_table():
@@ -44,7 +46,4 @@ def query_table():
 #
 
 if __name__=="__main__":
-    create_db()
-    entry = [datetime.datetime.now(), "food", 10.32, "i bought lunch"]
-    insert_entry(entry)
     query_table()

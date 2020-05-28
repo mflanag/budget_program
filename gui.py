@@ -2,6 +2,9 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
 from tkinter import scrolledtext
+
+import budget_db as db
+
 # Global Objects
 top = tk.Tk()
 cost = None
@@ -26,17 +29,21 @@ def update_db(temp=None):
     if category_select == '' and price <= 0.0:
         messagebox.showerror('Invalid Entry', \
             'Price must be greater than zero.\nYou must select a category.')
-        return
+        return False
     elif price <= 0.0:
         messagebox.showerror('Invalid Entry', \
             'Price must be greater than zero.')
-        return
+        return False
     elif category_select == '':
         messagebox.showerror('Invalid Entry', \
             'You must select a category')
-        return
+        return False
     #
     # update the database
+    if db.insert_entry(category_select, price, description) != True:
+        print("Database not updated successfully")
+        return False
+    #
     print("Categories updated %s with price %f" % (category_select, price))
     print("Memo - %s" % description)
     # update the button to show good
@@ -45,6 +52,12 @@ def update_db(temp=None):
         messagebox.showinfo('Entry Successfully Added', \
             'Entry of (%s, %f)\nMemo - %s' % (category_select, price, description))
     #
+    clear_forms()
+    return True
+#
+
+def clear_forms():
+    global ctgory, cost, desc, category_buttons
     # clear variables
     ctgory.set('')
     cost.delete(0, 'end')
