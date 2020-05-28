@@ -1,0 +1,11 @@
+Fix tabbing to be more intuitive
+Add graphing feature
+    Need to be able to select any x/y axis comparison and the ranges
+Export Database based on db queries i.e. an excel of all X in time Y
+Be able to create new db's using a file->new    
+    load existing Database
+        if no db given default to the last used one (requires saving that somewhere)
+Need a way to add/remove categories easily
+    Possibly scale to using a drop down if necessary with a text search
+    Somehow on load detect which categories are available
+Error checking on inputs to the db
