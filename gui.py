@@ -2,13 +2,13 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
 from tkinter import scrolledtext
-import matplotlib
+# import matplotlib
 
 import budget_db as db
 
-matplotlib.use("TkAgg")
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
-from matplotlib.figure import Figure
+# matplotlib.use("TkAgg")
+# from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
+# from matplotlib.figure import Figure
 
 # Global Objects
 top = tk.Tk()
